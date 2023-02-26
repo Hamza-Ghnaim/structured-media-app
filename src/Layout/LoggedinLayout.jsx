@@ -21,4 +21,18 @@ const LoggedinLayout = () => {
       );
     } else setCurrentUser(AuthenticationService.getCurrentUser());
   }, [navigate, setCurrentUser]);
+
+  return (
+    <Routes>
+      {MainRouter?.map((router, index) => (
+        <Route
+          path={router.path}
+          exact={router.isExact}
+          key={`${index}-${router.name}`}
+          element={<Wrapper Component={router.component} />}
+        />
+      ))}
+      <Route path="/" element={<Navigate replace to="/albums/" />} />
+    </Routes>
+  );
 };
