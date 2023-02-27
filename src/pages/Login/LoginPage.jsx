@@ -13,7 +13,7 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       const verifiedUser = await VerifyService.login(email);
-
+      
       if (!verifiedUser) {
         setError("Invalid Credentials!");
       } else {

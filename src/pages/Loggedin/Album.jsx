@@ -6,13 +6,12 @@ const Album = ({ data }) => {
   const { currentUser } = useContext(UserContext);
 
   const navigate = useNavigate();
-//   const SeePhotos = (id) => {
-//     navigate(`./Photos/?albumID=${id}`);
-//   };
+  const SeePhotos = (id) => {
+    navigate(`./photos?albumID=${id}`);
+  };
 
   return (
     <>
-      {true && (
         <div >
           <div>
             <div >
@@ -20,12 +19,11 @@ const Album = ({ data }) => {
               <h5 >@{currentUser.username}</h5>
             </div>
           </div>
-          <p>
+          <p onClick={() => SeePhotos(data.id)}>
             {data.title}
           </p>
           <hr />
         </div>
-      )}
     </>
   );
 };
