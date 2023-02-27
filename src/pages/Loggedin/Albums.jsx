@@ -1,32 +1,31 @@
-import React, { useState, useContext, useEffect } from 'react';
-
+import React, { Fragment,useState, useContext, useEffect } from 'react';
+import { AlbumService } from './AlbumService';
+import Album from './Album';
 // import Gallery from './components/Gallery';
 // import { AlbumService, PhotoService } from './services';
 import { UserContext } from '../../context';
 
 const Albums = () => {
-    const [photos, setPhotos] = useState([]);
     const { currentUser } = useContext(UserContext);
+    const [userAlbums,setuserAlbums] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const [albumsData, photosData] = await Promise.all([
-    //             AlbumService.list(),
-    //             PhotoService.list(),
-    //         ]);
 
-    //     const userAlbums = albumsData.filter(
-    //         item => item.userId === currentUser?.id,
-    //     );
-
-    //     setPhotos(
-    //         photosData
-    //         .filter(el => userAlbums.some(item => item.id === el.albumId))
-    //         .map(item => ({ src: item.url, width: 600, height: 600 })),
-    //     );
-    //     };
-    //     fetchData();
-    // }, [currentUser?.id]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const albumsData= await 
+                AlbumService.list();
+                // console.log(albumsData);
+                setuserAlbums(prevAlbums => [
+                    ...prevAlbums,
+                    ...albumsData.filter(item => item.userId === currentUser?.id)
+                ]);
+    
+        // console.log(albumsData.filter(item => item.userId === currentUser?.id));
+    };
+        
+        fetchData();
+    }, [currentUser?.id]);
+    // console.log(userAlbums);
 
     return (
         <div>
@@ -34,9 +33,15 @@ const Albums = () => {
                 style={{
                 color: 'blue',
             }}>
-                Photos
+                Albums
             </h1>
             {/* <Gallery photos={photos} /> */}
+            {userAlbums &&
+                userAlbums.map((album) => (
+            <Fragment key={album.id}>
+                <Album data={album} />
+            </Fragment>
+        ))}
         </div>
     );
 };
