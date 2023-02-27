@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useNavigate, Routes, Route, Navigate } from "react-router-dom";
 
 import { AuthenticationService } from "../services/AuthService";
-import { MainRouter } from "../routers";
+import { MainRouter } from "../Routes/MainRouter";
 import { UserContext } from "../context";
 
 const Wrapper = ({ Component }) => <Component />;
@@ -36,3 +36,5 @@ const LoggedinLayout = () => {
     </Routes>
   );
 };
+
+export default LoggedinLayout
