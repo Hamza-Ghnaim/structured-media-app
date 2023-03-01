@@ -37,8 +37,8 @@ const Albums = () => {
             </h1>
             {/* <Gallery photos={photos} /> */}
             {userAlbums &&
-                userAlbums.map((album) => (
-            <Fragment key={album.id}>
+                userAlbums.map((album,index) => (
+            <Fragment key={index}>
                 <Album data={album} />
             </Fragment>
         ))}
